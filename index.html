@@ -11,17 +11,30 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
     <script src="js/app.js"></script>
     <!-- / AngularJS -->
+
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
     
   </head>
   <body>
     <div ng-controller="formCtrl">
 
       <form novalidate class="simple-form">
-        First Name:        <input type="text" ng-model="form.firstName" required /><br /> 
-        Last Name:         <input type="text" ng-model="form.lastName" required /><br /> 
-        What is a fish?:   <input type="text" ng-model="form.q1" required /><br />
-        <button ng-click="submitForm()">Submit</button>
+        First Name:         <input type="text" ng-model="form.firstName" required /><br /> 
+        Last Name:          <input type="text" ng-model="form.lastName" required /><br /> 
+        {{ questions.1 }}   <input type="text" ng-model="form.q1" required /><br />
+        <button ng-click="submitForm(form)">Submit</button>
       </form>
+
+      <h1>Results</h1>
+      <div ng-repeat="form in forms">
+        <div style="border: 1px solid #efefef;">
+            <p>{{ form.firstName }} {{ form.lastName }}</p>
+            <p>{{ questions.1 }} {{ form.q1 }}</p>
+        </div>
+      </div>
 
     </div>
   </body>
