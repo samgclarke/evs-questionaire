@@ -10,18 +10,36 @@ myApp.controller('formCtrl', function ($scope, $firebase) {
 
     console.log('forms', formsArray);
 
-    // array of questions
-    $scope.questions = [
-        "",
-        "What is a fish?",
-    ];
+    var initForm = function () {
+        return {
+            person: {
+                firstname: "",
+                lastname: "",
+                email: "",
+            },
+            questions: [
+                {question: "What is a fish"},
+            ],
+        };
+    };
 
-    $scope.submitForm = function (form) {
-        console.log('You sumbitted: ', form);
-        formsarray.$add(form).then(function (newChildRef) {
-            console.log("added record with id " + newChildRef.name());
+    $scope.formObj = initForm();
+
+    $scope.submitForm = function (formObj) {
+        var isDupe = false;
+        angular.forEach($scope.forms, function(value, key) {
+            //console.log('formObj.person.email', formObj.person.email);
+            //console.log('value.person.email', value.person.email);
+            isDupe = (formObj.person.email == value.person.email) ? true : false;
         });
-        console.log('forms', forms);
-        $scope.form = {};      
+        if (!isDupe) {
+            var formComplete = angular.copy(formObj);
+            formsArray.$add(formComplete).then(function (newChildRef) {
+                console.log("added record with id " + newChildRef.name());
+            });
+        } else {
+            console.log('I cut ya!');
+        }
+        $scope.formObj = initForm();
     };
 });

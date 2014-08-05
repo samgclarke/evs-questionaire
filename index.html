@@ -16,23 +16,49 @@
     <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+
+    <!-- css -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     
   </head>
   <body>
-    <div ng-controller="formCtrl">
+    <div class="container" ng-controller="formCtrl">
 
-      <form novalidate class="simple-form">
-        First Name:         <input type="text" ng-model="form.firstName" required /><br /> 
-        Last Name:          <input type="text" ng-model="form.lastName" required /><br /> 
-        {{ questions.1 }}   <input type="text" ng-model="form.q1" required /><br />
-        <button ng-click="submitForm(form)">Submit</button>
-      </form>
+      <div class="row">
+        <form role="form">
+          <div class="form-group col-md-6">
+            <label for="first-name">First Name</label>
+            <input id="first-name" type="text" ng-model="formObj.person.firstname" class="form-control" required />
+            
+            <label for="last-name">Last Name</label>
+            <input id="last-name" type="text" ng-model="formObj.person.lastname" class="form-control" required />
+
+            <label for="email">Email</label>
+            <input id="email" type="text" ng-model="formObj.person.email" class="form-control" required />
+
+            <hr />
+
+            <div ng-repeat="q in formObj.questions">
+              <label for="q.question">{{ q.question }}?</label> 
+              <input id="{{ q.question }}" type="text" ng-model="q.answer" class="form-control" required />
+            </div>
+
+            <hr />
+
+            <button ng-click="submitForm(formObj)">Submit</button>
+          </div>
+        </form>
+      </div>
 
       <h1>Results</h1>
+      <hr />
       <div ng-repeat="form in forms">
         <div style="border: 1px solid #efefef;">
-            <p>{{ form.firstName }} {{ form.lastName }}</p>
-            <p>{{ questions.1 }} {{ form.q1 }}</p>
+            <p>{{ form.person.firstname }} {{ form.person.lastname }}</p>
+            <p>{{ form.person.email }}</p>
+            <div ng-repeat="q in form.questions">
+               {{ q.question }} {{ q.answer }}
+            </div>
         </div>
       </div>
 
