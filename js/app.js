@@ -38,7 +38,7 @@ myApp.controller('formCtrl', function ($scope, $firebase) {
                 console.log("added record with id " + newChildRef.name());
             });
         } else {
-            console.log('I cut ya!');
+            console.log('email address already used.');
         }
         $scope.formObj = initForm();
     };
