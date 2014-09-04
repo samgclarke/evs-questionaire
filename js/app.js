@@ -19,6 +19,8 @@ myApp.controller('formCtrl', function ($scope, $firebase) {
             },
             questions: [
                 {question: "What is a fish"},
+                {question: "Do you consider the small scale fishery that you are studying, economically viable*"}
+                // these questions must be completed
             ],
         };
     };

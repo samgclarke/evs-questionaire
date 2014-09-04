@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <title>Economic Viability of Small-scale fisheries Questionnaire</title>
+    <title>Economic Viability of Small-scale Fisheries</title>
     <!--<link href="style.css" rel="stylesheet">-->
 
 
@@ -23,6 +23,7 @@
   </head>
   <body>
     <div class="container" ng-controller="formCtrl">
+    <h2>Economic Viability of Small-scale Fisheries</h2>
 
       <div class="row">
         <form role="form">
@@ -33,9 +34,6 @@
             <label for="last-name">Last Name</label>
             <input id="last-name" type="text" ng-model="formObj.person.lastname" class="form-control" required />
 
-            <label for="email">Email</label>
-            <input id="email" type="text" ng-model="formObj.person.email" class="form-control" required />
-
             <hr />
 
             <div ng-repeat="q in formObj.questions">
@@ -44,6 +42,13 @@
             </div>
 
             <hr />
+
+            <h4>Please enter your email address if you are interested in contribiuting, sharing data, and/ or collaborating</h4>
+
+            <form role="form">
+              <label for="email">Email</label>
+              <input id="email" type="text" ng-model="formObj.person.email" class="form-control" required />
+            </form>
 
             <button ng-click="submitForm(formObj)">Submit</button>
           </div>
