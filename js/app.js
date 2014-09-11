@@ -8,6 +8,8 @@ myApp.controller('formCtrl', function ($scope, $firebase) {
 
     $scope.forms = formsArray;
 
+    $scope.revealText = false;
+
     console.log('forms', formsArray);
 
     var initForm = function () {
@@ -18,8 +20,7 @@ myApp.controller('formCtrl', function ($scope, $firebase) {
                 email: "",
             },
             questions: [
-                {question: "What is a fish"},
-                {question: "Do you consider the small scale fishery that you are studying, economically viable*"}
+                {question: "Do you consider the small scale fishery that you are studying, economically viable", type: 'boolean'}
                 // these questions must be completed
             ],
         };
@@ -42,6 +43,10 @@ myApp.controller('formCtrl', function ($scope, $firebase) {
         } else {
             console.log('email address already used.');
         }
+        // return form to virgin state
         $scope.formObj = initForm();
+
+        // reset reveal text
+        $scope.revealText = false;
     };
 });

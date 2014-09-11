@@ -23,47 +23,60 @@
   </head>
   <body>
     <div class="container" ng-controller="formCtrl">
-    <h2>Economic Viability of Small-scale Fisheries</h2>
+    <h1>Economic Viability of Small-scale Fisheries Questionaire</h1>
+
+    <hr />
 
       <div class="row">
-        <form role="form">
-          <div class="form-group col-md-6">
-            <label for="first-name">First Name</label>
-            <input id="first-name" type="text" ng-model="formObj.person.firstname" class="form-control" required />
-            
-            <label for="last-name">Last Name</label>
-            <input id="last-name" type="text" ng-model="formObj.person.lastname" class="form-control" required />
+        <div class="col-md-12">
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <label class="sr-only" name="firstname" for="first-name">First Name</label>
+              <input id="first-name" type="text" ng-model="formObj.person.firstname" class="form-control" placeholder="First Name"required />  
+              <label class="sr-only" for="last-name">Last Name</label>
+              <input id="last-name" name="lastname" type="text" ng-model="formObj.person.lastname" class="form-control" placeholder="Last Name" required />
 
-            <hr />
+              <hr />
 
-            <div ng-repeat="q in formObj.questions">
-              <label for="q.question">{{ q.question }}?</label> 
-              <input id="{{ q.question }}" type="text" ng-model="q.answer" class="form-control" required />
+              <div ng-repeat="q in formObj.questions">
+                <label for="q.question">{{ q.question }}?</label> 
+                <div ng-if="q.type == 'boolean'">
+                  <input id="{{ q.question }}-yes" name="{{ q.question }}-yes" type="radio" ng-model="q.answer" class="form-control" value="Yes" /> Yes
+                  <input id="{{ q.question }}-no" name="{{ q.question }}-no" type="radio" ng-model="q.answer" class="form-control" value="No" /> No
+                </div>
+              </div>
+
+              <br />
+              <button class="btn btn-success" ng-click="revealText=true">Submit</button>
             </div>
+          </div>
 
+          <div ng-show="revealText" class="col-md-12">
             <hr />
 
             <h4>Please enter your email address if you are interested in contribiuting, sharing data, and/ or collaborating</h4>
 
-            <form role="form">
-              <label for="email">Email</label>
-              <input id="email" type="text" ng-model="formObj.person.email" class="form-control" required />
-            </form>
-
-            <button ng-click="submitForm(formObj)">Submit</button>
+            <div class="form-group">
+              <label class="sr-only" for="email">Email</label>
+              <input id="email" type="email" name="email-address" ng-model="formObj.person.email" class="form-control" placeholder="email" style="width:400px" />
+              <br /><br />
+              <button class="btn btn-success" ng-click="submitForm(formObj)">Submit</button>
+              <button class="btn btn-danger" ng-click="submitForm(formObj)">No Thank you</button>
+            </div>
           </div>
-        </form>
+        </form>  
+
       </div>
 
       <h1>Results</h1>
       <hr />
       <div ng-repeat="form in forms">
         <div style="border: 1px solid #efefef;">
-            <p>{{ form.person.firstname }} {{ form.person.lastname }}</p>
-            <p>{{ form.person.email }}</p>
-            <div ng-repeat="q in form.questions">
-               {{ q.question }} {{ q.answer }}
-            </div>
+            <p><strong>Name:</strong> {{ form.person.firstname }} {{ form.person.lastname }}</p>
+            <p><strong>Email:</strong> {{ form.person.email || 'withheld' }}</p>
+            <p ng-repeat="q in form.questions">
+               <strong>{{ q.question }}</strong> {{ q.answer }}
+            </p>
         </div>
       </div>
 
